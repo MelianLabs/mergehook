@@ -1,3 +1,5 @@
+require "octokit"
+
 class PullRequestCreator < PullRequestActionBase
   def run
     return if story_id.blank?
