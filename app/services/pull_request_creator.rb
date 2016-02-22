@@ -13,7 +13,7 @@ class PullRequestCreator < PullRequestActionBase
 
   def update_pull_request_description
     client = Octokit::Client.new access_token: @project.user.github_token
-    client.update_pull_request @project.repo, pull_request.number, nil, "https://www.pivotaltracker.com/story/show/#{pull_request.story_id}"
+    client.update_pull_request @project.repo, pull_request.number, {:body => "https://www.pivotaltracker.com/story/show/#{pull_request.story_id}"}
   end
 
 end
