@@ -4,7 +4,6 @@ class PullRequestCloser < PullRequestActionBase
 
     if @payload[:pull_request][:merged]
       story.deliver
-      # temoporary removed
       # story.add_note "#{pull_request_markdown} has been **merged**, marking story as **delivered**."
     else
       story.add_note "#{pull_request_markdown} has been closed (and **not** merged)."
