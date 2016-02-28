@@ -2,6 +2,7 @@
   <table>
     <thead>
       <tr>
+        <th>Sendgrid Emai</th>
         <th>GitHub</th>
         <th>Pivotal Tracker</th>
       </tr>
@@ -9,6 +10,7 @@
     <tbody>
       <% @projects.each do |project| %>
       <tr>
+        <td><%= project.sendgrid_email %></td>
         <td><%= repo_url project.repo %></td>
         <td><%= pivotal_tracker_project_url(project.tracker_project_id, @tracker_projects) %></td>
         <td>

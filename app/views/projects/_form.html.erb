@@ -3,6 +3,11 @@
     <p><%= msg %></p>
   <% end %>
 
+  <%= f.label :sendgrid_email %>
+  <%= f.text_field :sendgrid_email, placeholder: "bugs@mybugs.bymail.in" %>
+
+  <br>
+
   <%= f.label :repo %>
   <%= f.text_field :repo, placeholder: "owner/repo_name" %>
 

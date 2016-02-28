@@ -14,6 +14,8 @@ module Tracker
   end
 
   class Project
+    attr_reader :project
+
     def initialize(token, project_id)
       ::PivotalTracker::Client.token = token
       ::PivotalTracker::Client.use_ssl = true
