@@ -33,20 +33,24 @@ class SendgridWebhooksController < ActionController::Base
       # create story
       story = tracker_project.project.stories.create(new_story_attrs)
 
-      # upload attachments
-      if params[:attachments].present? && params[:attachments].to_i > 0
-        (1..params[:attachments].to_i).each do |index|          
-          next unless params["attachment#{index}"].present?
-          uploaded_file = params["attachment#{index}"]
+      begin
+        # upload attachments
+        if params[:attachments].present? && params[:attachments].to_i > 0
+          (1..params[:attachments].to_i).each do |index|          
+            next unless params["attachment#{index}"].present?
+            uploaded_file = params["attachment#{index}"]
 
-          name = uploaded_file.original_filename
-          directory = "#{Rails.root}/tmp/"
-          path = File.join(directory, name)
-          File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+            name = uploaded_file.original_filename
+            directory = "#{Rails.root}/tmp/"
+            path = File.join(directory, name)
+            File.open(path, "wb") { |f| f.write(uploaded_file.read) }
 
-          story.upload_attachment(path)
-          File.unlink(path)
+            story.upload_attachment(path)
+            File.unlink(path)
+          end
         end
+      rescue Exception => ex
+        puts "Error when uploading files", ex.message
       end
     end
 
