@@ -45,7 +45,7 @@ class SendgridWebhooksController < ActionController::Base
           File.open(path, "wb") { |f| f.write(uploaded_file.read) }
 
           story.upload_attachment(path)
-          File.rm(path)
+          File.unlink(path)
         end
       end
     end
