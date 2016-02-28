@@ -40,7 +40,7 @@ class SendgridWebhooksController < ActionController::Base
           uploaded_file = params["attachment#{index}"]
 
           name = uploaded_file.original_filename
-          directory = "#{RAILS_ROOT}/tmp/"
+          directory = "#{Rails.root}/tmp/"
           path = File.join(directory, name)
           File.open(path, "wb") { |f| f.write(uploaded_file.read) }
 
