@@ -35,7 +35,9 @@ class SendgridWebhooksController < ActionController::Base
 
       # upload attachments
       if params[:attachments].present? && params[:attachments].to_i > 0
-        [1..params[:attachments].to_i].each do |index|
+        (1..params[:attachments].to_i).each do |index|
+          next unless params["attachment#{index}"].present?
+
           story.upload_attachment(params["attachment#{index}"])
         end
       end
