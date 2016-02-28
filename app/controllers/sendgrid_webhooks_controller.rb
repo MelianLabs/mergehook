@@ -27,7 +27,7 @@ class SendgridWebhooksController < ActionController::Base
         new_story_attrs[:owner_ids] = [owner.try(:id)]
       end
       
-      story = tracker_project.stories.create(new_story_attrs)
+      story = tracker_project.project.stories.create(new_story_attrs)
     end
 
     render :json => { "message" => "OK" }, :status => :ok
