@@ -35,10 +35,17 @@ class SendgridWebhooksController < ActionController::Base
 
       # upload attachments
       if params[:attachments].present? && params[:attachments].to_i > 0
-        (1..params[:attachments].to_i).each do |index|
+        (1..params[:attachments].to_i).each do |index|          
           next unless params["attachment#{index}"].present?
+          uploaded_file = params["attachment#{index}"]
 
-          story.upload_attachment(params["attachment#{index}"])
+          name = uploaded_file.original_filename
+          directory = "#{RAILS_ROOT}/tmp/"
+          path = File.join(directory, name)
+          File.open(path, "wb") { |f| f.write(uploaded_file.read) }
+
+          story.upload_attachment(path)
+          File.rm(path)
         end
       end
     end
