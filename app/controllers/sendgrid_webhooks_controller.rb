@@ -14,17 +14,18 @@ class SendgridWebhooksController < ActionController::Base
       requester = tracker_project.project.memberships.all.find{|e| e.email == requester_email}
 
       new_story_attrs = {
-        :story_type      => 'bug', 
-        :name            => params[:subject], 
-        :description     => description,
-        :estimate        => 0,
-        :requested_by_id => requester.try(:id)
+        :story_type   => 'bug', 
+        :name         => params[:subject], 
+        :description  => description,
+        :estimate     => 0,
+        :requested_by => requester.try(:name),
+        :labels       => ["email-hook"],
       }
       if params[:cc].present?
         owner_email = params[:cc].scan(email_regex).to_a.first
         owner = tracker_project.project.memberships.all.find{|e| e.email == owner_email}
 
-        new_story_attrs[:owner_ids] = [owner.try(:id)]
+        new_story_attrs[:owned_by] = owner.try(:name)
       end
       
       story = tracker_project.project.stories.create(new_story_attrs)
