@@ -4,6 +4,8 @@ class SendgridWebhooksController < ActionController::Base
     params[:from]
     params[:cc]
 
+    pp params
+
     render :json => { "message" => "OK" }, :status => :ok
   end
 end
