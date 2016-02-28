@@ -160,6 +160,8 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    reverse_markdown (1.0.1)
+      nokogiri
     rspec-core (3.0.2)
       rspec-support (~> 3.0.0)
     rspec-expectations (3.0.2)
@@ -240,6 +242,7 @@ DEPENDENCIES
   pry-rails
   rails (= 4.1.1)
   rails_12factor
+  reverse_markdown
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
