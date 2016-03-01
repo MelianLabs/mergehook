@@ -1,9 +1,11 @@
 class SendgridWebhooksController < ActionController::Base
   def create
     email_regex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i
-    project     = Project.where(:sendgrid_email => params[:to]).first
 
-    if project.present?
+    to_email = (params[:to] || "").scan(email_regex).to_a.first
+    project  = Project.where(:sendgrid_email => to_email).first
+
+    if to_email.present? && project.present?
       tracker_project = Tracker::Project.from_project(project)
       description = params[:html]
       description = params[:text] if description.blank?
