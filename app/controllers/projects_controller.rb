@@ -28,12 +28,9 @@ class ProjectsController < ApplicationController
   end
 
   def trigger_build
-    uri = URI("https://circleci.com/api/v1/project/#{@project.repo}/tree/#{params[:branch]}?circle-token=#{@project.user.circle_token}")
-    req = Net::HTTP::Post.new(uri, initheader = {'Content-Type' =>'application/json'})
-    req.body = {}.to_json
-    @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
-      http.request(req)
-    end
+    branch = params[:branch]
+    uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{branch}?circle-token=#{@project.user.circle_token}"
+    @res = `#{uri}`
   end
 
   private
