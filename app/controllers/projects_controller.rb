@@ -30,7 +30,7 @@ class ProjectsController < ApplicationController
   def trigger_build
     branch = params[:branch]
     uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{branch}?circle-token=#{@project.user.circle_token}"
-    @res = `#{uri}`
+    @res = `curl -X POST --header "Content-Type: application/json" -d '{}' #{uri}`
   end
 
   private
