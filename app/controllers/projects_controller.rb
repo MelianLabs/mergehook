@@ -36,7 +36,11 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    @project = current_user.projects.find(params[:id])
+    @project = if current_user.present?
+      current_user.projects.find(params[:id])
+    else
+      Project.find(params[:id])
+    end
   end
 
   def set_tracker_projects
