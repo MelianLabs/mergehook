@@ -1,14 +1,17 @@
 class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
-  # def push(payload)
-  #   commit = Commit.new(payload)
-  #   if commit.merge_to_master?
-  #     story = tracker_project.story(commit.story_id)
-  #     story.finish
-  #     story.remove_label "pull-request"
-  #   end
-  # end
+  def push(payload)
+    client = Octokit::Client.new access_token: @project.user.github_token
+    branch = payload[:ref].split("/").last
+    client.create_status project.repo, payload[:head], "success", {:target_url => "https://mymergehook.herokuapp.com/projects/#{@project.id}/trigger_build/#{branch}", :context => "Trigger Build"}
+    # commit = Commit.new(payload)
+    # if commit.merge_to_master?
+    #   story = tracker_project.story(commit.story_id)
+    #   story.finish
+    #   story.remove_label "pull-request"
+    # end
+  end
 
   def pull_request(payload)
     case payload[:action]

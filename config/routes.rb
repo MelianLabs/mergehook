@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :projects
+  resources :projects do
+    member do
+      get "trigger_build/:branch", :to => :trigger_build
+    end
+  end
 
   devise_for :users, :skip => [:registrations],
                      :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

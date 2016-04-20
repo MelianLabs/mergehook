@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
   before_action :ensure_current_user_pivotal_tracker_api_token, only: :index
-  before_action :set_project, only: :destroy
+  before_action :set_project, only: [:destroy, :trigger_build]
   before_action :set_tracker_projects, only: [:index, :new, :create]
+  skip_before_action :authenticate_user!, only: [:trigger_build]
 
   def index
     @projects = current_user.projects
@@ -24,6 +25,15 @@ class ProjectsController < ApplicationController
     GithubUnsubscriber.new(@project).run(current_user)
     @project.destroy
     redirect_to projects_path
+  end
+
+  def trigger_build
+    uri = URI("https://circleci.com/api/v1/project/#{@project.repo}/tree/#{params[:branch]}?circle-token=#{@project.user.circle_token}")
+    req = Net::HTTP::Post.new(uri, initheader = {'Content-Type' =>'application/json'})
+    req.body = {}.to_json
+    @res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+      http.request(req)
+    end
   end
 
   private
