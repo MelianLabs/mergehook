@@ -13,6 +13,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:pivotal_tracker_api_token)
+    params.require(:user).permit(:pivotal_tracker_api_token, :circle_token)
   end
 end
