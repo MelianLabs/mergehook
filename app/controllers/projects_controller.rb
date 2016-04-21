@@ -33,7 +33,7 @@ class ProjectsController < ApplicationController
       :sha    => params[:sha],
       :status => "success"
     }
-    StatusCreator.new(options, @project)
+    StatusCreator.new(options, @project).run
 
     uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{params[:branch]}?circle-token=#{@project.user.circle_token}"
     @res = JSON.parse(`curl -X POST --header "Content-Type: application/json" -d '{}' #{uri}`)

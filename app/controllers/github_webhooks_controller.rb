@@ -7,7 +7,7 @@ class GithubWebhooksController < ActionController::Base
       :sha    => payload[:after],
       :status => "pending"
     }
-    StatusCreator.new(options, @project)
+    StatusCreator.new(options, @project).run
     # commit = Commit.new(payload)
     # if commit.merge_to_master?
     #   story = tracker_project.story(commit.story_id)
