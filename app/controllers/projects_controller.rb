@@ -28,8 +28,14 @@ class ProjectsController < ApplicationController
   end
 
   def trigger_build
-    branch = params[:branch]
-    uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{branch}?circle-token=#{@project.user.circle_token}"
+    options = {
+      :branch => params[:branch],
+      :sha    => params[:sha],
+      :status => "success"
+    }
+    StatusCreator.new(options, @project)
+
+    uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{params[:branch]}?circle-token=#{@project.user.circle_token}"
     @res = JSON.parse(`curl -X POST --header "Content-Type: application/json" -d '{}' #{uri}`)
   end
 
