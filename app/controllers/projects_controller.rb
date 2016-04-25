@@ -36,7 +36,10 @@ class ProjectsController < ApplicationController
     StatusCreator.new(options, @project).run
 
     uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{params[:branch]}?circle-token=#{@project.user.circle_token}"
-    @res = JSON.parse(`curl -X POST --header "Content-Type: application/json" -d '{}' #{uri}`)
+    cmd = "curl -X POST --header \"Content-Type: application/json\" -d '{}' #{uri}"
+    puts "cmd >>>", cmd
+    @res = JSON.parse(`cmd`)
+    puts "@res >>>", @res
   end
 
   private
