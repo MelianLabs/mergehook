@@ -2,7 +2,9 @@ class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
   def push(payload)
+    return unless payload[:after].present? 
     return if "#{payload[:after]}" == "0000000000000000000000000000000000000000"
+    
     options = {
       :branch => payload[:ref].split("/").last,
       :sha    => payload[:after],
