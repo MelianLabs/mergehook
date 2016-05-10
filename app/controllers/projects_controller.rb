@@ -35,8 +35,6 @@ class ProjectsController < ApplicationController
       :sha    => params[:sha],
       :status => "success"
     }
-    StatusCreator.new(options, @project).run
-
     @res = CircleciBuilder.new(options, @project).run
     puts "@res >>>", @res
   end
