@@ -31,8 +31,6 @@ class GithubWebhooksController < ActionController::Base
       PullRequestReopener.new(payload, @project).run
     when "labeled"
       PullRequestLabeler.new(payload, @project).run
-    when "unlabeled"
-      PullRequestLabeler.new(payload, @project).run
     end
   end
 
