@@ -30,9 +30,9 @@ class GithubWebhooksController < ActionController::Base
     when "reopened"
       PullRequestReopener.new(payload, @project).run
     when "labeled"
-      PullRequestLabeler.new({:branch => params["pull_request"]["head"]["ref"]}, @project).run
+      PullRequestLabeler.new(payload, @project).run
     when "unlabeled"
-      PullRequestLabeler.new({:branch => params["pull_request"]["head"]["ref"]}, @project).run
+      PullRequestLabeler.new(payload, @project).run
     end
   end
 
