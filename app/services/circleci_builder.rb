@@ -6,7 +6,7 @@ class CircleciBuilder
   end
 
   def run
-    uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{URI::encode(options[:branch])}?circle-token=#{@project.user.circle_token}"
+    uri = "https://circleci.com/api/v1/project/#{@project.repo}/tree/#{URI::encode(@options[:branch])}?circle-token=#{@project.user.circle_token}"
     cmd = "curl -X POST --header \"Content-Type: application/json\" -d '{}' #{uri}"
     JSON.parse(`#{cmd}`)
   end
