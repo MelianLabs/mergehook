@@ -10,8 +10,8 @@ class CircleciBuilder
     # https://circleci.com/docs/api/#new-build
     StatusCreator.new(@options, @project).run
 
-    uri = "https://circleci.com/api/v1.1/project/#{@project.repo}/tree/#{URI::encode(@options[:branch])}?circle-token=#{@project.user.circle_token}"
-    cmd = "curl -X POST --header \"Content-Type: application/json\" -d '{}' #{uri}"
+    uri = "https://circleci.com/api/v1.1/project/github/#{@project.repo}/tree/#{URI::encode(@options[:branch])}?circle-token=#{@project.user.circle_token}"
+    cmd = "curl -X POST --header \"Content-Type: application/json\" -d '{\"tag\": \"auto\"}' #{uri}"
 
     puts "cmd >>>", cmd
 
