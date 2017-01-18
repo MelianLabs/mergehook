@@ -37,12 +37,14 @@ module Tracker
     end
 
     def deliver
+      return unless @story.present?
       if %w(unscheduled unstarted started finished).include?(@story.current_state)
         @story.update(current_state: "delivered")
       end      
     end
 
     def finish
+      return unless @story.present?
       if %w(unscheduled unstarted started).include?(@story.current_state)
         @story.update(current_state: "finished")
       end
@@ -61,6 +63,7 @@ module Tracker
     end
 
     def add_note(text)
+      return unless @story.present?
       @story.notes.create text: text
     end
 
