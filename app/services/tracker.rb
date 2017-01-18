@@ -67,11 +67,13 @@ module Tracker
     private
 
     def label_set
+      return unless @story.present?
       flat_labels = @story.try(:labels)
       Set.new(flat_labels.blank? ? [] : flat_labels.split(",").map(&:strip))
     end
 
     def update_labels(labels)
+      return unless @story.present?
       label_array = labels.to_a.compact
       label_array.sort! if label_array.any?
       @story.update(labels: label_array.join(","))
