@@ -67,7 +67,7 @@ module Tracker
     private
 
     def label_set
-      flat_labels = @story.labels
+      flat_labels = @story.try(:labels)
       Set.new(flat_labels.blank? ? [] : flat_labels.split(",").map(&:strip))
     end
 
