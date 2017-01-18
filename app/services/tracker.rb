@@ -67,7 +67,7 @@ module Tracker
     private
 
     def label_set
-      return unless @story.present?
+      return [] unless @story.present?
       flat_labels = @story.try(:labels)
       Set.new(flat_labels.blank? ? [] : flat_labels.split(",").map(&:strip))
     end
