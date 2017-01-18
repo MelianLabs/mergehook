@@ -15,7 +15,9 @@ class CircleciBuilder
 
     puts "cmd >>>", cmd
 
-    JSON.parse(`#{cmd}`)
+    res = `#{cmd}`
+
+    JSON.parse(res) rescue res
   end
 
 end
