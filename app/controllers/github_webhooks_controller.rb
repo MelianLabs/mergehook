@@ -31,6 +31,8 @@ class GithubWebhooksController < ActionController::Base
       PullRequestReopener.new(payload, @project).run
     when "labeled"
       PullRequestLabeler.new(payload, @project).run
+    when "review_requested"
+      PullRequestReviewRequester.new(payload, @project).run
     end
   end
 
