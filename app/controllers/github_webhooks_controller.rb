@@ -6,7 +6,7 @@ class GithubWebhooksController < ActionController::Base
     return if "#{payload[:after]}" == "0000000000000000000000000000000000000000"
     
     options = {
-      :branch => payload[:ref].split("/").last,
+      :branch => payload[:ref].split("refs/heads/").last,
       :sha    => payload[:after],
       :status => "pending"
     }
