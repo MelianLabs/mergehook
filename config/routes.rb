@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :projects do
     member do
-      get "trigger_build/:branch", :to => :trigger_build, :format => false, :constraints => { :branch => /[^\/]+/ }
+      get "trigger_build/:branch", :to => :trigger_build, :format => false, :constraints => { :branch => /[^\s]+/ }
     end
   end
 
