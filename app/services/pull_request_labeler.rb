@@ -2,6 +2,9 @@ require "octokit"
 
 class PullRequestLabeler < PullRequestActionBase
   def run
+    # disable
+    return 
+
     require "pp"
     options = {
       :branch => @payload[:pull_request][:head][:ref],
