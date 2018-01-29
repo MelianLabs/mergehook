@@ -3,6 +3,7 @@ class PullRequestCloser < PullRequestActionBase
     return if story_id.blank? || pull_request.nil?
 
     if @payload[:pull_request][:merged]
+      story.add_label "merged-into-master"
       # disable autodeliver
       # story.deliver
       # story.add_note "#{pull_request_markdown} has been **merged**, marking story as **delivered**."
