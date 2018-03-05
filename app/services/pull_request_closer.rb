@@ -7,9 +7,9 @@ class PullRequestCloser < PullRequestActionBase
       # disable autodeliver
       # story.deliver
       # story.add_note "#{pull_request_markdown} has been **merged**, marking story as **delivered**."
-    else
-      story.add_note "#{pull_request_markdown} has been closed (and **not** merged)."
+    # else
+    #   story.add_note "#{pull_request_markdown} has been closed (and **not** merged)."
     end
-    story.remove_label LABEL
+    # story.remove_label LABEL
   end
 end

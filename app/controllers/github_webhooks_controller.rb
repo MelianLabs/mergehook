@@ -25,14 +25,14 @@ class GithubWebhooksController < ActionController::Base
       PullRequestCreator.new(payload, @project).run
     when "closed"
       PullRequestCloser.new(payload, @project).run
-    when "synchronize"
-      PullRequestUpdater.new(payload, @project).run
-    when "reopened"
-      PullRequestReopener.new(payload, @project).run
-    when "labeled"
-      PullRequestLabeler.new(payload, @project).run
-    when "review_requested"
-      PullRequestReviewRequester.new(payload, @project).run
+    # when "synchronize"
+    #   PullRequestUpdater.new(payload, @project).run
+    # when "reopened"
+    #   PullRequestReopener.new(payload, @project).run
+    # when "labeled"
+    #   PullRequestLabeler.new(payload, @project).run
+    # when "review_requested"
+    #   PullRequestReviewRequester.new(payload, @project).run
     end
   end
 

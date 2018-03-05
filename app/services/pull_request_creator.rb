@@ -5,8 +5,9 @@ class PullRequestCreator < PullRequestActionBase
     return if story_id.blank?
 
     if pull_request
-      story.add_label LABEL
-      story.add_note "#{pull_request_markdown} has been opened."
+      # disable
+      # story.add_label LABEL
+      # story.add_note "#{pull_request_markdown} has been opened."
       update_pull_request_description
     end
   end
