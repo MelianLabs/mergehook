@@ -1,24 +1,6 @@
 class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
-  def github_push(payload)
-    return unless payload[:after].present?
-    return if "#{payload[:after]}" == "0000000000000000000000000000000000000000"
-
-    options = {
-      :branch => payload[:ref].split("refs/heads/").last,
-      :sha    => payload[:after],
-      :status => "pending"
-    }
-    # StatusCreator.new(options, @project).run
-    # commit = Commit.new(payload)
-    # if commit.merge_to_master?
-    #   story = tracker_project.story(commit.story_id)
-    #   story.finish
-    #   story.remove_label "pull-request"
-    # end
-  end
-
   def github_create(payload)
     p 'github_create'
     p payload
@@ -28,14 +10,6 @@ class GithubWebhooksController < ActionController::Base
       PullRequestCreator.new(payload, @project).run
     when "closed"
       PullRequestCloser.new(payload, @project).run
-    # when "synchronize"
-    #   PullRequestUpdater.new(payload, @project).run
-    # when "reopened"
-    #   PullRequestReopener.new(payload, @project).run
-    # when "labeled"
-    #   PullRequestLabeler.new(payload, @project).run
-    # when "review_requested"
-    #   PullRequestReviewRequester.new(payload, @project).run
     end
   end
 

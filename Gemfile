@@ -49,6 +49,7 @@ gem 'rails_12factor', group: :production
 
 gem 'github_webhook'
 gem 'reverse_markdown'
+gem 'tracker_api'
 
 group :development, :test do
   gem 'better_errors'

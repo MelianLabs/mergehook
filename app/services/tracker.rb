@@ -4,12 +4,11 @@ require "set"
 module Tracker
   class Account
     def initialize(token)
-      ::PivotalTracker::Client.token = token
-      ::PivotalTracker::Client.use_ssl = true
+      @client = TrackerApi::Client.new(token: token)
     end
 
     def projects
-      ::PivotalTracker::Project.all
+      @client.projects
     end
   end
 
@@ -17,9 +16,8 @@ module Tracker
     attr_reader :project
 
     def initialize(token, project_id)
-      ::PivotalTracker::Client.token = token
-      ::PivotalTracker::Client.use_ssl = true
-      @project = ::PivotalTracker::Project.find(project_id)
+      @client = TrackerApi::Client.new(token: token)
+      @project = @client.project(project_id)
     end
 
     def story(story_id)
@@ -33,53 +31,15 @@ module Tracker
 
   class Story
     def initialize(project, story_id)
-      @story = project.stories.find(story_id.to_i)
-    end
-
-    def deliver
-      return unless @story.present?
-      if %w(unscheduled unstarted started finished).include?(@story.current_state)
-        @story.update(current_state: "delivered")
-      end
-    end
-
-    def finish
-      return unless @story.present?
-      if %w(unscheduled unstarted started).include?(@story.current_state)
-        @story.update(current_state: "finished")
-      end
+      @story = project.story(story_id.to_i)
     end
 
     def add_label(label)
-      labels = label_set
-      labels << label
-      update_labels(labels)
-    end
+      label = TrackerApi::Resources::Label.new(name: label)
 
-    def remove_label(label)
-      labels = label_set
-      labels.delete(label)
-      update_labels(labels)
-    end
-
-    def add_note(text)
-      return unless @story.present?
-      @story.notes.create text: text
-    end
-
-    private
-
-    def label_set
-      return [] unless @story.present?
-      flat_labels = @story.try(:labels)
-      Set.new(flat_labels.blank? ? [] : flat_labels.split(",").map(&:strip))
-    end
-
-    def update_labels(labels)
-      return unless @story.present?
-      label_array = labels.to_a.compact
-      label_array.sort! if label_array.any?
-      @story.update(labels: label_array.join(","))
+      # GOOD
+      @story.labels = @story.labels.dup.push(label)
+      @story.save
     end
   end
 end
