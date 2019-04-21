@@ -111,7 +111,7 @@ GEM
       oauth2 (~> 1.1)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    pg (1.1.4)
+    pg (0.21.0)
     polyglot (0.3.5)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -142,7 +142,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.19.0)
-    rake (12.3.2)
+    rake (10.5.0)
     rdoc (4.3.0)
     reverse_markdown (1.1.0)
       nokogiri
@@ -218,10 +218,11 @@ DEPENDENCIES
   jquery-rails
   octokit (~> 3.1.2)
   omniauth-github
-  pg
+  pg (~> 0.18)
   pry-rails
   rails (= 4.1.1)
   rails_12factor
+  rake (< 11.0)
   reverse_markdown
   rspec-rails (~> 3.0.0)
   sass-rails (~> 4.0.3)
@@ -232,7 +233,7 @@ DEPENDENCIES
   unicorn
 
 RUBY VERSION
-   ruby 2.5.3p105
+   ruby 2.3.1
 
 BUNDLED WITH
    1.16.6
