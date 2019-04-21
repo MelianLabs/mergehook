@@ -1,5 +1,5 @@
 require "set"
-require "pivotal-tracker"
+# require "pivotal-tracker"
 
 module Tracker
   class Account
@@ -40,7 +40,7 @@ module Tracker
       return unless @story.present?
       if %w(unscheduled unstarted started finished).include?(@story.current_state)
         @story.update(current_state: "delivered")
-      end      
+      end
     end
 
     def finish
