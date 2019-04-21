@@ -2,9 +2,6 @@ class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
   def github_pull_request(payload)
-    p 'github_pull_request'
-    p payload
-
     case payload[:action]
     when "opened"
       PullRequestCreator.new(payload, @project).run
