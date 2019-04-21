@@ -1,8 +1,8 @@
 class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
-  def github_create(payload)
-    p 'github_create'
+  def github_pull_request(payload)
+    p 'github_pull_request'
     p payload
 
     case payload[:action]
