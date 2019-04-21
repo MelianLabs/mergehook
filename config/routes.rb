@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :update]
 
   resource :github_webhooks, only: :create, defaults: { formats: :json }
-  resource :sendgrid_webhooks, only: :create, defaults: { formats: :json }
+  # resource :sendgrid_webhooks, only: :create, defaults: { formats: :json }
 
   root to: "projects#index"
 end

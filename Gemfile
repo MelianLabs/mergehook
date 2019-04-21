@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.1.2"
+ruby "2.5.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
@@ -46,8 +46,7 @@ gem 'rails_12factor', group: :production
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'github_webhook', '~> 0.2.0'
-gem 'pivotal-tracker', '~> 0.5.12'
+gem 'github_webhook'
 gem 'reverse_markdown'
 
 group :development, :test do

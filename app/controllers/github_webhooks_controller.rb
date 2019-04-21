@@ -1,10 +1,10 @@
 class GithubWebhooksController < ActionController::Base
   include GithubWebhook::Processor
 
-  def push(payload)
-    return unless payload[:after].present? 
+  def github_push(payload)
+    return unless payload[:after].present?
     return if "#{payload[:after]}" == "0000000000000000000000000000000000000000"
-    
+
     options = {
       :branch => payload[:ref].split("refs/heads/").last,
       :sha    => payload[:after],
@@ -19,7 +19,10 @@ class GithubWebhooksController < ActionController::Base
     # end
   end
 
-  def pull_request(payload)
+  def github_create(payload)
+    p 'github_create'
+    p payload
+
     case payload[:action]
     when "opened"
       PullRequestCreator.new(payload, @project).run
