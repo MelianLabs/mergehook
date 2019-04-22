@@ -31,7 +31,11 @@ module Tracker
 
   class Story
     def initialize(project, story_id)
-      @story = story_id.present? ? project.story(story_id.to_i) : nil
+      begin
+        @story = story_id.present? ? project.story(story_id.to_i) : nil
+      rescue TrackerApi::Errors::ClientError => ex
+        pp ex
+      end
     end
 
     def add_label(label)
