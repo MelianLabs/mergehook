@@ -34,7 +34,7 @@ module Tracker
       begin
         @story = story_id.present? ? project.story(story_id.to_i) : nil
       rescue TrackerApi::Errors::ClientError => ex
-        pp ex
+        p ex
       end
     end
 
