@@ -44,7 +44,7 @@ module Tracker
       label = TrackerApi::Resources::Label.new(name: label)
 
       # GOOD
-      @story.labels = @story.labels.dup.push(label)
+      @story.labels = (@story.labels || []).dup.push(label)
       @story.save
     end
   end
