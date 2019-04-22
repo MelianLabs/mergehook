@@ -31,7 +31,7 @@ class PullRequestActionBase
   end
 
   def story
-    @story ||= Tracker::Project.from_project(@project).story(pull_request.story_id)
+    @story ||= Tracker::Project.from_project(@project).story(pull_request.story_id) rescue nil
   end
 
   def pull_request_markdown
