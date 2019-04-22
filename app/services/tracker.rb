@@ -31,7 +31,7 @@ module Tracker
 
   class Story
     def initialize(project, story_id)
-      @story = project.story(story_id.to_i)
+      @story = story_id.present? ? project.story(story_id.to_i) : nil
     end
 
     def add_label(label)
