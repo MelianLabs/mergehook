@@ -39,6 +39,8 @@ module Tracker
     end
 
     def add_label(label)
+      return unless @story.present?
+
       label = TrackerApi::Resources::Label.new(name: label)
 
       # GOOD
