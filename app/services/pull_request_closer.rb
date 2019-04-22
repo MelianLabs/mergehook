@@ -3,7 +3,7 @@ class PullRequestCloser < PullRequestActionBase
     return if story_id.blank? || pull_request.nil?
 
     if @payload[:pull_request][:merged]
-      base_branch = (params[:pull_request][:base] || {})[:ref] || 'master'
+      base_branch = (@payload[:pull_request][:base] || {})[:ref] || 'master'
       story&.add_label "merged-into-#{base_branch}"
 
       # disable autodeliver
