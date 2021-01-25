@@ -47,5 +47,14 @@ module Tracker
       @story.labels = (@story.labels || []).dup.push(label)
       @story.save
     end
+
+    # possible values: accepted, delivered, finished, started, rejected, planned, unstarted, unscheduled
+    def update_status_if_needed
+      return unless @story.present?
+      return unless %w{accepted delivered}.include?(@story.attributes[:current_state].to_s)
+
+      @story.current_state = "rejected"
+      @story.save
+    end
   end
 end
