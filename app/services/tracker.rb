@@ -55,6 +55,7 @@ module Tracker
 
       @story.current_state = "rejected"
       @story.save
+      @story.create_comment(text: "Story rejected because a new PR was open")
     end
   end
 end
