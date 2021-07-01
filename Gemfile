@@ -49,7 +49,7 @@ gem 'rails_12factor', '~> 0.0.3', group: :production
 
 gem 'github_webhook', '~> 1.1.1'
 gem 'reverse_markdown', '~> 1.1.0'
-gem 'tracker_api', '~> 1.9.1'
+gem 'tracker_api' #, '~> 1.9.1'
 
 group :development, :test do
   gem 'better_errors', '~> 2.5.1'
